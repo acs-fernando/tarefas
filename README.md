@@ -16,3 +16,8 @@ insert into projeto (id,titulo) values (nextVal('projeto_id_seq'),'Company');
 <code>
 insert into dados_pessoa (id,cpf,email,nome) values (nextVal('dados_pessoa_id_seq'),'664.176.590-38','acassio.fernando89@gmail.com','Acassio Silva');
 </code>
+<br>
+<span>Usuário para acesso ao sistema:</span><br>
+<span>admin</span><br>
+<span>Senha:</span><br>
+<span>12399</span><br>
