@@ -1,0 +1,60 @@
+<script type="text/javascript" th:fragment="func" th:inline="javascript">
+(function () {
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	  return new bootstrap.Tooltip(tooltipTriggerEl)
+	});
+	var urlCards = /*[[@{/cards/ordena}]]*/
+	$( "#sortable1, #sortable2, #sortable3, #sortable4, #sortable5" ).sortable({
+        connectWith: ".connectedSortable",
+        cursor: "move",
+        update: function( event, ui ) {
+        	var status = $(event.target).data('status')
+        	var cardsString = $(this).sortable('serialize', { key: status })
+        	console.log(cardsString)
+        	$.ajax({
+                data: cardsString,
+                type: 'POST',
+                url: urlCards
+            });
+        }
+    }).disableSelection();
+})()
+var modalCadastros
+function showModalCadastros(e) {
+	var urlController = e.data("url")
+	var titulo = e.data("titulo")
+	go(urlController, titulo)
+	modalCadastros = new bootstrap.Modal(document.getElementById('modal-cadastros'), {
+      keyboard: false
+    })
+	modalCadastros.show()
+}
+function go(urlController, titulo) {
+	$("#title-modal-cadastros").text(titulo);
+	$("#body-modal-cadastros").load(urlController)
+	var fModal = $("#body-modal-cadastros form")
+	if(fModal.attr("action") !== 'undefined') {
+		$(".btn-send").hide()
+	}else {
+		$(".btn-send").show()
+	}
+}
+function send(e,fcad) {
+	e.preventDefault()
+	var req = $.ajax({
+      method: "POST",
+      url: fcad.attr("action"),
+      data: fcad.serializeArray(),
+      dataType: "json"
+    });
+    return req;
+}
+function showErros(erros) {
+	Array.prototype.slice.call(erros)
+		.forEach(function (erro){
+			$("#erro-"+erro.campo).text(erro.mensagem)
+			$("#erro-"+erro.campo).show()
+		})
+}
+</script>

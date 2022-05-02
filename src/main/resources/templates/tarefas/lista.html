@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html class="vh-100">
+<meta charset="UTF-8"/>
+<body>
+    <div class="container-fluid">
+        <table class="table table-striped" th:if="${not #lists.isEmpty(tarefas)}">
+            <thead>
+                <th>Título</th>
+                <th>Dt. Previsão</th>
+            </thead>
+            <tbody>
+                <tr th:each="tarefa : ${tarefas}">
+                    <td th:text="${tarefa.titulo}"></td>
+                    <td th:text="${{tarefa.dataPrevisao}}">...</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-warning" role="alert" th:if="${#lists.isEmpty(tarefas)}">
+          Não há tarefas cadastradas
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style th:replace="~{funcoes :: func}"></style>
+<div th:fragment="cards" class="row pt-4 h-100" style="width: 1685px;max-height: 554px;">
+    <div class="col coluna-grid">
+        <div class="container-fluid coluna-title">
+            <div class="row justify-content-between">
+                <div class="col-6 text-start">
+                    <span>Aguardando</span>
+                </div>
+                <div class="col-4 pe-0">
+                    <span><i class="bi bi-clock"></i> 5h</span>
+                    <span class="badge-a rounded-circle ms-2">3</span>
+                </div>
+            </div>
+        </div>
+        <ul id="sortable1" class="connectedSortable" th:data-status="AGUARDANDO">
+            <li th:each="card : ${cards['AGUARDANDO']}" th:id="'card-' + ${card.id}">
+                <div class="card card-obj">
+                    <div class="card-body pt-2 px-2">
+                        <div class="container-fluid p-0">
+                            <div class="row justify-content-between">
+                                <div class="col-8 text-start">
+                                    <span class="category" th:text="${card.tarefa.setor.nome}"></span>
+                                </div>
+                                <div class="col-4">
+                                    <div class="codigo-tarefa-card">
+                                        <label>Código:</label>
+                                        <span th:text="'#' + ${card.tarefa.codigo}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-12 text-start text-truncate">
+                                    <h5 class="card-obj-title" th:text="${card.tarefa.titulo}" data-bs-toggle="tooltip" th:title="${card.tarefa.titulo}"></h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-4 text-start">
+                                    <label>Projeto:</label>
+                                    <span th:text="${card.tarefa.projeto.titulo}"></span>
+                                </div>
+                                <div class="col-8 text-end">
+                                    <label>Prevista:</label>
+                                    <span><i class="bi bi-calendar"></i> <span th:text="${{card.tarefa.dataPrevista}}">...</span></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start text-truncate">
+                                    <label>Descrição:</label>
+                                    <span data-bs-toggle="tooltip" th:title="${card.tarefa.descricao}" th:text="${card.tarefa.descricao}"></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start">
+                                    <div class="separator">Acompanhamento</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Previsto</label>
+                                    <span>00:30</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <div class="d-inline-block bg-success py-1 px-4">Em dia</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Saldo</label>
+                                    <span class="saldo-success">+00:10</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <label>Equipe</label>
+                                    <span data-bs-toggle="tooltip" title="Afonso Solano" class="badge-equpe rounded-circle">AS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col coluna-grid">
+        <div class="container-fluid coluna-title">
+            <div class="row justify-content-between">
+                <div class="col-6 text-start">
+                    <span>Em andamento</span>
+                </div>
+                <div class="col-4 pe-0">
+                    <span><i class="bi bi-clock"></i> 5h</span>
+                    <span class="badge-a rounded-circle ms-2">3</span>
+                </div>
+            </div>
+        </div>
+        <ul id="sortable2" class="connectedSortable" th:data-status="EM_ANDAMENTO">
+            <li th:each="card : ${cards['EM_ANDAMENTO']}" th:id="'card-' + ${card.id}">
+                <div class="card card-obj">
+                    <div class="card-body pt-2 px-2">
+                        <div class="container-fluid p-0">
+                            <div class="row justify-content-between">
+                                <div class="col-8 text-start">
+                                    <span class="category" th:text="${card.tarefa.setor.nome}"></span>
+                                </div>
+                                <div class="col-4">
+                                    <div class="codigo-tarefa-card">
+                                        <label>Código:</label>
+                                        <span th:text="'#' + ${card.tarefa.codigo}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-12 text-start text-truncate">
+                                    <h5 class="card-obj-title" th:text="${card.tarefa.titulo}" data-bs-toggle="tooltip" th:title="${card.tarefa.titulo}"></h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-4 text-start">
+                                    <label>Projeto:</label>
+                                    <span th:text="${card.tarefa.projeto.titulo}"></span>
+                                </div>
+                                <div class="col-8 text-end">
+                                    <label>Prevista:</label>
+                                    <span><i class="bi bi-calendar"></i> <span th:text="${{card.tarefa.dataPrevista}}">...</span></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start text-truncate">
+                                    <label>Descrição:</label>
+                                    <span data-bs-toggle="tooltip" th:title="${card.tarefa.descricao}" th:text="${card.tarefa.descricao}"></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start">
+                                    <div class="separator">Acompanhamento</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Previsto</label>
+                                    <span>00:30</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <div class="d-inline-block bg-success py-1 px-4">Em dia</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Saldo</label>
+                                    <span class="saldo-success">+00:10</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <label>Equipe</label>
+                                    <span data-bs-toggle="tooltip" title="Afonso Solano" class="badge-equpe rounded-circle">AS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col coluna-grid">
+        <div class="container-fluid coluna-title">
+            <div class="row justify-content-between">
+                <div class="col-6 text-start">
+                    <span>Pendência</span>
+                </div>
+                <div class="col-4 pe-0">
+                    <span><i class="bi bi-clock"></i> 3h</span>
+                    <span class="badge-a rounded-circle ms-2">2</span>
+                </div>
+            </div>
+        </div>
+        <ul id="sortable3" class="connectedSortable" th:data-status="PENDENTE">
+            <li th:each="card : ${cards['PENDENTE']}" th:id="'card-' + ${card.id}">
+                <div class="card card-obj">
+                    <div class="card-body pt-2 px-2">
+                        <div class="container-fluid p-0">
+                            <div class="row justify-content-between">
+                                <div class="col-8 text-start">
+                                    <span class="category" th:text="${card.tarefa.setor.nome}"></span>
+                                </div>
+                                <div class="col-4">
+                                    <div class="codigo-tarefa-card">
+                                        <label>Código:</label>
+                                        <span th:text="'#' + ${card.tarefa.codigo}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-12 text-start text-truncate">
+                                    <h5 class="card-obj-title" th:text="${card.tarefa.titulo}" data-bs-toggle="tooltip" th:title="${card.tarefa.titulo}"></h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-4 text-start">
+                                    <label>Projeto:</label>
+                                    <span th:text="${card.tarefa.projeto.titulo}"></span>
+                                </div>
+                                <div class="col-8 text-end">
+                                    <label>Prevista:</label>
+                                    <span><i class="bi bi-calendar"></i> <span th:text="${{card.tarefa.dataPrevista}}">...</span></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start text-truncate">
+                                    <label>Descrição:</label>
+                                    <span data-bs-toggle="tooltip" th:title="${card.tarefa.descricao}" th:text="${card.tarefa.descricao}"></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start">
+                                    <div class="separator">Acompanhamento</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Previsto</label>
+                                    <span>00:30</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <div class="d-inline-block bg-success py-1 px-4">Em dia</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Saldo</label>
+                                    <span class="saldo-success">+00:10</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <label>Equipe</label>
+                                    <span data-bs-toggle="tooltip" title="Afonso Solano" class="badge-equpe rounded-circle">AS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col coluna-grid">
+        <div class="container-fluid coluna-title">
+            <div class="row justify-content-between">
+                <div class="col-6 text-start">
+                    <span>Finalizado</span>
+                </div>
+                <div class="col-4 pe-0">
+                    <span><i class="bi bi-clock"></i> 1h</span>
+                    <span class="badge-a rounded-circle ms-2">2</span>
+                </div>
+            </div>
+        </div>
+        <ul id="sortable4" class="connectedSortable" th:data-status="FINALIZADO">
+            <li th:each="card : ${cards['FINALIZADO']}" th:id="'card-' + ${card.id}">
+                <div class="card card-obj">
+                    <div class="card-body pt-2 px-2">
+                        <div class="container-fluid p-0">
+                            <div class="row justify-content-between">
+                                <div class="col-8 text-start">
+                                    <span class="category" th:text="${card.tarefa.setor.nome}"></span>
+                                </div>
+                                <div class="col-4">
+                                    <div class="codigo-tarefa-card">
+                                        <label>Código:</label>
+                                        <span th:text="'#' + ${card.tarefa.codigo}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-12 text-start text-truncate">
+                                    <h5 class="card-obj-title" th:text="${card.tarefa.titulo}" data-bs-toggle="tooltip" th:title="${card.tarefa.titulo}"></h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-4 text-start">
+                                    <label>Projeto:</label>
+                                    <span th:text="${card.tarefa.projeto.titulo}"></span>
+                                </div>
+                                <div class="col-8 text-end">
+                                    <label>Prevista:</label>
+                                    <span><i class="bi bi-calendar"></i> <span th:text="${{card.tarefa.dataPrevista}}">...</span></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start text-truncate">
+                                    <label>Descrição:</label>
+                                    <span data-bs-toggle="tooltip" th:title="${card.tarefa.descricao}" th:text="${card.tarefa.descricao}"></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start">
+                                    <div class="separator">Acompanhamento</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Previsto</label>
+                                    <span>00:30</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <div class="d-inline-block bg-success py-1 px-4">Em dia</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Saldo</label>
+                                    <span class="saldo-success">+00:10</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <label>Equipe</label>
+                                    <span data-bs-toggle="tooltip" title="Afonso Solano" class="badge-equpe rounded-circle">AS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col coluna-grid">
+        <div class="container-fluid coluna-title">
+            <div class="row justify-content-between">
+                <div class="col-6 text-start">
+                    <span>Outros</span>
+                </div>
+                <div class="col-4 pe-0">
+                    <span><i class="bi bi-clock"></i> 1h</span>
+                    <span class="badge-a rounded-circle ms-2">3</span>
+                </div>
+            </div>
+        </div>
+        <ul id="sortable5" class="connectedSortable" th:data-status="OUTROS">
+            <li th:each="card : ${cards['OUTROS']}" th:id="'card-' + ${card.id}">
+                <div class="card card-obj">
+                    <div class="card-body pt-2 px-2">
+                        <div class="container-fluid p-0">
+                            <div class="row justify-content-between">
+                                <div class="col-8 text-start">
+                                    <span class="category" th:text="${card.tarefa.setor.nome}"></span>
+                                </div>
+                                <div class="col-4">
+                                    <div class="codigo-tarefa-card">
+                                        <label>Código:</label>
+                                        <span th:text="'#' + ${card.tarefa.codigo}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-12 text-start text-truncate">
+                                    <h5 class="card-obj-title" th:text="${card.tarefa.titulo}" data-bs-toggle="tooltip" th:title="${card.tarefa.titulo}"></h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-4 text-start">
+                                    <label>Projeto:</label>
+                                    <span th:text="${card.tarefa.projeto.titulo}"></span>
+                                </div>
+                                <div class="col-8 text-end">
+                                    <label>Prevista:</label>
+                                    <span><i class="bi bi-calendar"></i> <span th:text="${{card.tarefa.dataPrevista}}">...</span></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start text-truncate">
+                                    <label>Descrição:</label>
+                                    <span data-bs-toggle="tooltip" th:title="${card.tarefa.descricao}" th:text="${card.tarefa.descricao}"></span>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col text-start">
+                                    <div class="separator">Acompanhamento</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Previsto</label>
+                                    <span>00:30</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <div class="d-inline-block bg-success py-1 px-4">Em dia</div>
+                                </div>
+                            </div>
+                            <div class="row mt-1 justify-content-between">
+                                <div class="col-1 text-start">
+                                    <label>&nbsp;</label>
+                                    <i class="bi bi-clock"></i> 
+                                </div>
+                                <div class="col-4 text-start">
+                                    <label>Saldo</label>
+                                    <span class="saldo-success">+00:10</span>
+                                </div>
+                                <div class="col-7 text-end">
+                                    <label>Equipe</label>
+                                    <span data-bs-toggle="tooltip" title="Afonso Solano" class="badge-equpe rounded-circle">AS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

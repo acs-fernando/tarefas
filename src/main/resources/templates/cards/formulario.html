@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="vh-100">
+<meta charset="UTF-8"/>
+<style th:replace="~{funcoes :: func}"></style>
+<body>
+    <div class="container-fluid">
+        <form id="form-card" th:action="@{/cards}" th:object="${cardForm}" th:if="${not #lists.isEmpty(tarefas)}" th:data-red="@{/cards}" method="post">
+            <div class="row">
+                <div class="col-4">
+                    <label for="tarefa" class="form-label">Selecione a tarefa</label>
+                    <select id="tarefa" th:field="*{tarefaId}" class="form-select" aria-label="Tarefa" required>
+                        <option value="" selected> - Selecione - </option>
+                        <option th:each="tarefa : ${tarefas}" th:data-status="${tarefa.status}" th:value="${tarefa.id}" th:text="${tarefa.titulo} + ' - Dt. Previsão: ' + ${{tarefa.dataPrevisao}} + ' - Status: ' + ${tarefa.status.nome}"></option>
+                    </select>
+                    <div id="erro-tarefaId" class="invalid-feedback">Informe o projeto</div>
+                    <input type="hidden" th:field="*{posicaoVertical}"/>
+                    <input id="status" type="hidden" th:field="*{status}"/>
+                </div>
+            </div>
+        </form>
+        <div id="detalhes-tarefas" class="card mt-3 w-60" style="display: none;" >
+            <div th:each="tarefa : ${tarefas}" th:id="'tarefa' + ${tarefa.id}" class="container card-body" style="display: none;">
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Satus: </label><br>
+                        <span th:text="${tarefa.status.nome}"></span>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Departamento: </label><br>
+                        <span th:text="${tarefa.setor.nome}"></span>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Dt. Prevista: </label><br>
+                        <span th:text="${{tarefa.dataPrevista}}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-warning" role="alert" th:if="${#lists.isEmpty(tarefas)}">
+          Não há tarefas cadastradas
+        </div>
+    </div>
+<script type="text/javascript">
+(function () {
+	$(".btn-send").show()
+	var f = $("#form-card")
+    f.submit(function(e){
+	    send(e,f)
+	    .done(function( data , textStatus, jqXHR ) {
+	    	  $("#grid-cards").load(f.data("red"))
+	    	  modalCadastros.hide()
+	      })
+	      .fail(function( jqXHR, textStatus, errorThrown ) {
+	    	  showErros(jqXHR.responseJSON)
+	      });
+    })
+    $(".btn-send").click(function() {
+	    f.submit()
+    })
+    $("#tarefa").change(function(){
+    	$("#status").val($("option:selected", this).data('status'))
+    	$("#detalhes-tarefas .card-body").hide()
+    	var id = $(this).val()
+    	$("#detalhes-tarefas").show()
+    	$("#tarefa"+id).show()
+    })
+})()
+</script>
+</body>
+</html>

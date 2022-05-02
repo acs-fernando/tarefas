@@ -1,0 +1,279 @@
+<style th:fragment="tarefas">
+.menu-top .btn {
+    background-color: #71d18f;
+    font-size: 1rem;
+}
+.modal-body {
+    overflow-y: scroll;
+}
+ul {
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+.menu-top-link {
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+.menu-left {
+    background-color: #71d18f;
+    width: 100%;
+    min-height: 500px;
+    padding: .5rem .1rem;
+    font-size: 1.2rem;
+}
+.menu-left .nav-link {
+    color: #000;
+    padding: .5rem 0rem;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    opacity: 0.7;
+}
+.menu-left .active:not(.add-card) {
+    opacity: 0.9;
+}
+.menu-left .active:not(.add-card):after {
+    content: '';
+    height: 50%;
+    width: 3px;
+    position: absolute;
+    left: 0;
+    top: 12px;
+    background-color: #000;
+}
+.menu-left .nav-link:not(.no-link):hover {
+    color: #fff;
+}
+.logo {
+    width: 45px;
+    border-radius: 35px;
+    margin: 0 auto;
+    box-shadow: 0px 1px 2px #000;
+}
+.tooltip-arrow {
+    visibility: hidden;
+}
+.add-card {
+    background-color: #f4189e;
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
+    padding: 0!important;
+    margin: 5px auto;
+    color: #fff!important;
+    opacity: 1!important;
+}
+.add-card:hover + #add-card-btn, #add-card-btn:hover {
+    visibility: visible;
+}
+#add-card-btn {
+    width: 200px;
+    position: absolute;
+    top: 417px;
+    visibility: hidden;
+    display: block;
+    height: 36px;
+    background-color: #df128f;
+    left: 8px;
+    border-radius: 13px;
+    padding: 0;
+    font-size: 1.1em;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    text-align: left;
+    padding: 0 12px;
+    z-index: 99999999;
+}
+.badge-a {
+    background-color: rgb(29, 88, 47);
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    line-height: 18px;
+}
+.badge-a-sm {
+    font-size: .7rem;
+    width: 15px;
+    height: 15px;
+    line-height: 13px;
+}
+.badge-a-menu-top {
+    background-color: #df128f;
+    position: relative;
+    top: 4px;
+    left: -9px;
+}
+.badge-equpe {
+    background-color: #777;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    text-align: center;
+    padding: 0px;
+    line-height: 20px;
+    font-size: .7rem;
+    cursor: default;
+}
+.side-links {
+    box-shadow: 1px 1px 3px #ccc;
+    z-index: 999;
+    max-width: 55px;
+}
+.side-links {
+    min-height: 500px;
+}
+.side-links, .side-links a, .menu-top a, .menu-top .btn {
+    color: rgb(29, 88, 47)!important;
+}
+.side-links a:hover {
+    color: #df128f!important;
+}
+.menu-top {
+    border: 2px solid #71d18f;
+    border-left-width: 10px;
+}
+.icon-search {
+    border-right: none;
+    border-radius: .25rem 0 0 .25rem;
+    background-color: #fff;
+    color: #bcbcbc!important;
+}
+.text-search {
+    border-left: none;
+    border-radius: 0 .25rem .25rem 0;
+}
+.text-search:focus, .text-search:focus > .icon-search {
+    border-color: #ced4da;
+    box-shadow: none;
+}
+.coluna-title {
+    background-color: #71d18f;
+    padding: .5rem .8rem;
+    color: #fff;
+    border-radius: .5rem 0 .5rem 0;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.coluna-title .badge-a {
+    background-color: #fff;
+    color: #71d18f;
+}
+.grid-cards {
+    overflow-x: scroll;
+    max-height: 554px;
+}
+.grid-cards .coluna-grid {
+    background-color: #eee;
+    padding: 0;
+    padding-bottom: .8rem;
+    margin: 0 15px;
+    border-radius: .5rem 0 .5rem 0;
+    min-width: 300px;
+    max-width: 300px;
+}
+.card-obj {
+    margin: 0 .5rem .8rem .5rem;
+    box-shadow: 1px 1px 4px #ccc;
+    font-size: .6rem;
+}
+.category {
+    border: 1px solid #ccc;
+    padding: 3px;
+    text-transform: uppercase;
+    font-size: .6rem;
+    border-radius: .2rem;
+}
+.codigo-tarefa-card {
+    font-size: .6rem;
+}
+.card-obj label {
+    color: #999;
+    display: block;
+    font-size: .6rem;
+}
+.card-obj-title{
+    text-transform: uppercase;
+    margin: .3rem 0;
+}
+.separator {
+    color: #bcbcbc;
+    font-size: .7rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    left: -9px;
+    width: 284px;
+}
+.separator::before {
+    content: '';
+    flex: .1;
+    border-bottom: 1px solid #ccc;
+}
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
+.separator:not(:empty)::before {
+    margin-right: .25em;
+}
+.separator:not(:empty)::after {
+    margin-left: .25em;
+}
+.bg-success {
+    color: #fff;
+    box-shadow: 1px 1px 1px #000;
+    border-radius: .2rem;
+    text-transform: uppercase;
+}
+.saldo-success {
+    color: #198754;
+    border: 1px solid #198754;
+    border-radius: .2rem;
+    padding: .1rem .3rem;
+}
+.card-btn-go {
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    cursor: pointer;
+    padding: 0;
+}
+.card-btn-go:hover {
+    transition: border-color .15s ease-in-out;
+    border: 1px solid #0d6efd;
+}
+.card-btn-go .card-body {
+    padding: 0;
+}
+.card-btn-go a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    color: #0d6efd;
+}
+.card-btn-go a:hover {
+    color: #0d6efd;
+}
+.card-btn-go i {
+    font-size: 4rem;
+}
+.card-btn-go span {
+    display: block;
+}
+.connectedSortable {
+    height: 100%;
+}
+.card-obj-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+</style>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8"/>
+<head th:replace="~{base :: head('Login')}"></head>
+<body>
+	<div class="container mt-4">
+		<h2 class="text-center mt-5">Faça seu login</h2>
+		<div class="card mx-auto mt-3 w-50 p-3">
+			<form th:action="@{/login}" class="card-body needs-validation" method="post" novalidate>
+				<div class="form-group mb-3">
+					<label for="username">Usuário</label>
+					<input name="username" class="form-control" placeholder="usuário" required="required"/>
+					<div class="invalid-feedback">Necessário informar o usuário</div>
+				</div>
+				<div class="form-group mb-3">
+					<label for="password">Senha</label>
+					<input type="password" name="password" class="form-control" placeholder="senha" required="required"/>
+					<div class="invalid-feedback">Necessário informar a senha</div>
+				</div>
+				<button class="btn btn-primary" type="submit">Login</button>
+			</form>
+			<div class="alert alert-danger" th:if="${erro}" role="alert">Usuário / Senha inválidos</div>
+		</div>
+	</div>
+<script type="text/javascript">
+(function () {
+  'use strict'
+  var forms = document.querySelectorAll('.needs-validation')
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+</body>
+</html>

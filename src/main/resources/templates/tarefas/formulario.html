@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="vh-100">
+<meta charset="UTF-8"/>
+<style th:replace="~{funcoes :: func}"></style>
+<body>
+    <div class="container-fluid">
+        <form id="form-tarefa" th:action="@{/tarefas}" th:object="${tarefaForm}" th:data-red="@{/tarefas/lista}" method="post">
+            <div class="row">
+                <div class="col-6">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="titulo" th:field="*{titulo}" placeholder="Título" aria-label="Título" required>
+                    <div id="erro-titulo" class="invalid-feedback"></div>
+                </div>
+                <div class="col-2">
+                    <label for="codigo" class="form-label">Código</label>
+                    <input type="text" class="form-control" id="codigo" th:field="*{codigo}" placeholder="Código" aria-label="Código" required>
+                    <div id="erro-codigo" class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label for="projeto" class="form-label">Projeto</label>
+                    <select th:field="*{projetoId}" class="form-select" aria-label="Projeto" required>
+                        <option value="" selected> - Selecione - </option>
+                        <option th:each="proj : ${projetos}" th:value="${proj.id}" th:text="${proj.titulo}"></option>
+                    </select>
+                    <div id="erro-projetoId" class="invalid-feedback"></div>
+                </div>
+                <div class="col-4">
+                    <label for="setor" class="form-label">Setor</label>
+                    <select th:field="*{setor}" class="form-select" aria-label="Setor" required>
+                        <option value="" selected> - Selecione - </option>
+                        <option th:each="setor : ${setores}" th:value="${setor}" th:text="${setor.nome}"></option>
+                    </select>
+                    <div id="erro-setor" class="invalid-feedback"></div>
+                </div>
+                <div class="col-4">
+                    <label for="dt-previsao" class="form-label">Dt. Previsão</label>
+                    <input type="datetime-local" class="form-control" id="dt-previsao" th:field="*{dataPrevisao}" placeholder="Dt. Previsão" aria-label="Dt. Previsão" required>
+                    <div id="erro-dataPrevisao" class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <textarea th:field="*{descricao}" class="form-control" id="descricao" rows="3" required></textarea>
+                    <div id="erro-descricao" class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label for="status" class="form-label">Status</label>
+                    <select th:field="*{status}" class="form-select" aria-label="Status" required>
+                        <option th:each="status : ${listStatus}" th:value="${status}" th:text="${status.nome}"></option>
+                    </select>
+                    <div id="erro-status" class="invalid-feedback"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+<script type="text/javascript">
+(function () {
+	$(".btn-send").show()
+	var f = $("#form-tarefa")
+    f.submit(function(e){
+	    send(e,f)
+	    .done(function( data , textStatus, jqXHR ) {
+	    	  go(f.data("red"), "Tarefas cadastradas")
+	      })
+	      .fail(function( jqXHR, textStatus, errorThrown ) {
+	    	  showErros(jqXHR.responseJSON)
+	      });
+    })
+    $(".btn-send").click(function() {
+	    f.submit()
+    })
+})()
+</script>
+</body>
+</html>

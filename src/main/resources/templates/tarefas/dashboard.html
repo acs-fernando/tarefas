@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="vh-100">
+<meta charset="UTF-8"/>
+<head th:replace="~{base :: head('Tarefas')}"></head>
+<style th:replace="~{styles :: tarefas}"></style>
+<style th:replace="~{funcoes :: func}"></style>
+<body class="vh-100">
+	<div class="container-fluid h-100">
+		<div class="row border rounded h-100">
+            <div class="col p-0 h-100" style="max-width: 52px;">
+                <nav class="nav flex-column menu-left card shadow-sm rounded h-100">
+                    <img class="logo" src="https://raw.githubusercontent.com/acs-fernando/files/main/logo.png">
+                    <a class="nav-link no-link" aria-current="page"><i class="bi bi-list"></i></a>
+                    <a class="nav-link no-link active"><i class="bi bi-columns-gap"></i></a>
+                    <a class="nav-link cadastros" data-bs-toggle="tooltip" data-bs-placement="right" title="Notificações"><i class="bi bi-bell"></i></a>
+                    <a class="nav-link cadastros" data-bs-toggle="tooltip" data-bs-placement="right" title="Gestão do Tempo"><i class="bi bi-stopwatch"></i></a>
+                    <a class="nav-link cadastros" data-bs-toggle="tooltip" data-bs-placement="right" title="Gestão de Processos"><span class="material-icons">track_changes</span></a>
+                    <a class="nav-link cadastros" data-bs-toggle="tooltip" data-bs-placement="right" title="Relatórios"><i class="bi bi-file-earmark-bar-graph"></i></a>
+                    <a class="nav-link cadastros" th:data-url="@{/main/formulario}" data-titulo="Cadastros" data-bs-toggle="tooltip" data-bs-placement="right" title="Cadastros"><i class="bi bi-folder-plus"></i></a>
+                    <a class="nav-link" data-bs-toggle="tooltip" data-bs-placement="right" title="Parâmetros"><i class="bi bi-gear"></i></a>
+                    <a class="nav-link add-card">+</a>
+                    <button id="add-card-btn" class="cadastros" data-titulo="Cadastro de card" th:data-url="@{/cards/formulario}"><i class="bi bi-plus-lg" style="margin-right: 11px;"></i> CRIAR CARD</button>
+                </nav>
+            </div>
+            <div class="col px-3 py-3 text-center side-links">
+                <div><i class="bi bi-briefcase-fill"></i></div>
+                <div style="height: 25px;"><a><i class="bi bi-chevron-right"></i></a></div>
+                <div><span class="badge-a rounded-circle">3</span></div>
+            </div>
+            <div class="col py-0 px-0 h-100" style="max-width: 1130px;">
+                <nav class="navbar menu-top py-1">
+                  <div class="container-fluid">
+                    <a class="navbar-brand">Tarefas<span class="ms-4 me-4" style="font-size:.7rem;"><i class="bi bi-clock"></i> 5h</span><span class="badge-a badge-a-sm rounded-circle">10</span></a>
+                    <div class="d-flex">
+                        <form class="d-flex">
+                          <div class="input-group-text icon-search"><i class="bi bi-search"></i></div>
+                          <input class="form-control text-search me-2" type="search" placeholder="Pesquisar por tarefa..." aria-label="Search">
+                          <button class="btn ms-2 me-3" style="width: 145px;" type="submit">FILTRO <i class="bi bi-funnel-fill"></i></button>
+                        </form>
+                        <a class="menu-top-link mx-3"><i class="bi bi-bell-fill"></i><span class="badge-a badge-a-sm badge-a-menu-top rounded-circle">2</span></a>
+                        <a class="menu-top-link"><i class="bi bi-arrows-fullscreen"></i></a>
+                    </div>
+                  </div>
+                </nav>
+                <div id="grid-cards" class="container-fluid grid-cards h-100">
+                    <head th:replace="~{cards/lista :: cards}"></head>
+                </div>
+            </div>
+            <div class="col px-3 py-3 text-center side-links">
+                <div style="height: 23px;"><span class="material-icons" style="font-size:20px;">alt_route</span></div>
+                <div style="height: 25px;"><a><i class="bi bi-chevron-left"></i></a></div>
+                <div><span class="badge-a rounded-circle">2</span></div>
+            </div>
+            <div class="col px-3 py-3 text-center side-links">
+                <div><i class="bi bi-check-circle-fill"></i></div>
+                <div style="height: 25px;"><a><i class="bi bi-chevron-left"></i></a></div>
+                <div><span class="badge-a rounded-circle">2</span></div>
+            </div>
+        </div>
+        <div id="modal-cadastros" class="modal fade" tabindex="-1" aria-labelledby="Cadastros" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="title-modal-cadastros">Cadastros</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+              </div>
+              <div id="body-modal-cadastros" class="modal-body" style="height: 400px;"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary btn-send">Gravar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+	</div>
+<script type="text/javascript" th:inline="javascript">
+(function () {
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	  return new bootstrap.Tooltip(tooltipTriggerEl)
+	});
+	$(".add-card").hover(function(){
+		$("#add-card-btn").css("visibility", "")
+	})
+	$("#add-card-btn").click(function(){
+		$(this).css("visibility", "hidden")
+	})
+	$(".cadastros").click(function(){
+		showModalCadastros($(this))
+	})
+	var modalCadastrosE = document.getElementById('modal-cadastros')
+	modalCadastrosE.addEventListener('hidden.bs.modal', function (event) {
+		$("#body-modal-cadastros").empty()
+	})
+	var urlCards = /*[[@{/cards/ordena}]]*/
+	$( "#sortable1, #sortable2, #sortable3, #sortable4, #sortable5" ).sortable({
+        connectWith: ".connectedSortable",
+        cursor: "move",
+        update: function( event, ui ) {
+        	var status = $(event.target).data('status')
+        	var cardsString = $(this).sortable('serialize', { key: status })
+        	console.log(cardsString)
+        	$.ajax({
+                data: cardsString,
+                type: 'POST',
+                url: urlCards
+            });
+        }
+    }).disableSelection();
+})()
+</script>
+</body>
+</html>
